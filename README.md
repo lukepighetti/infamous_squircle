@@ -1,0 +1,1 @@
+Rejected PR Squircle https://github.com/rydmike/squircle_study/tree/master but wrapped in a platform aware variant
