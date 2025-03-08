@@ -1,6 +1,7 @@
 name: infamous_squircle
-description: The infamous squircle with platform aware borders
+description: The infamous squircle with platform aware borders. (pana wants a longer description.)
 version: 0.0.1
+repository: https://github.com/lukepighetti/infamous_squircle.git
 
 environment:
   sdk: ^3.7.0

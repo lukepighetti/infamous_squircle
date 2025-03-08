@@ -8,7 +8,8 @@ import 'src/squircle_stadium_border.dart';
 export 'src/squircle_border.dart';
 export 'src/squircle_stadium_border.dart';
 
-class PlatformStadiumBorder extends PlatformOutlinedBorder {
+/// A platform aware border that uses [SquircleStadiumBorder] on iOS / macOS and [StadiumBorder] everywhere else
+final class PlatformStadiumBorder extends PlatformOutlinedBorder {
   const PlatformStadiumBorder({super.side});
 
   @override
@@ -24,56 +25,11 @@ class PlatformStadiumBorder extends PlatformOutlinedBorder {
   }
 }
 
-class PlatformBorder extends PlatformOutlinedBorder {
-  PlatformBorder.circular(double radius) : this.all(Radius.circular(radius));
+/// A platform aware border that uses [SquircleBorder] on iOS / macOS and [RoundedRectangleBorder] everywhere else
+final class PlatformBorder extends PlatformOutlinedBorder {
+  const PlatformBorder({super.side, this.borderRadius = BorderRadius.zero});
 
-  const PlatformBorder.vertical({
-    Radius top = Radius.zero,
-    Radius bottom = Radius.zero,
-  }) : this.only(
-         topLeft: top,
-         topRight: top,
-         bottomLeft: bottom,
-         bottomRight: bottom,
-       );
-
-  const PlatformBorder.horizontal({
-    Radius left = Radius.zero,
-    Radius right = Radius.zero,
-  }) : this.only(
-         topLeft: left,
-         topRight: right,
-         bottomLeft: left,
-         bottomRight: right,
-       );
-
-  const PlatformBorder.only({
-    super.side,
-    this.topLeft = Radius.zero,
-    this.topRight = Radius.zero,
-    this.bottomRight = Radius.zero,
-    this.bottomLeft = Radius.zero,
-  });
-
-  const PlatformBorder.all(Radius radius)
-    : this.only(
-        topLeft: radius,
-        topRight: radius,
-        bottomRight: radius,
-        bottomLeft: radius,
-      );
-
-  final Radius topLeft;
-  final Radius topRight;
-  final Radius bottomRight;
-  final Radius bottomLeft;
-
-  BorderRadius get r => BorderRadius.only(
-    topLeft: topLeft,
-    topRight: topRight,
-    bottomRight: bottomRight,
-    bottomLeft: bottomLeft,
-  );
+  final BorderRadiusGeometry borderRadius;
 
   @override
   OutlinedBorder builder(TargetPlatform platform) {
@@ -81,10 +37,14 @@ class PlatformBorder extends PlatformOutlinedBorder {
       TargetPlatform.android ||
       TargetPlatform.fuchsia ||
       TargetPlatform.linux ||
-      TargetPlatform
-          .windows => RoundedRectangleBorder(side: side, borderRadius: r),
-      TargetPlatform.iOS ||
-      TargetPlatform.macOS => SquircleBorder(side: side, borderRadius: r),
+      TargetPlatform.windows => RoundedRectangleBorder(
+        side: side,
+        borderRadius: borderRadius,
+      ),
+      TargetPlatform.iOS || TargetPlatform.macOS => SquircleBorder(
+        side: side,
+        borderRadius: borderRadius,
+      ),
     };
   }
 }
