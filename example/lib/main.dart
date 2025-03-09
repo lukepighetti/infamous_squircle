@@ -22,20 +22,8 @@ class _MyAppState extends State<MyApp> {
           spacing: 16,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            /// Platform aware capsule widget and shape
-            Capsule(
-              color: Colors.red,
-              child: Text("Capsule"),
-            ),
-            Container(
-              decoration: ShapeDecoration(
-                shape: const PlatformStadiumBorder(),
-                color: Colors.red,
-              ),
-              child: Text("PlatformStadiumBorder"),
-            ),
-
             /// Platform aware rounded rectangle widget and shape
+            /// use [Rectangle.custom] for uneven corners (like bottom sheets)
             Rectangle(
               radius: 12,
               color: Colors.blue,
@@ -49,6 +37,26 @@ class _MyAppState extends State<MyApp> {
                 color: Colors.blue,
               ),
               child: Text("PlatformRectangleBorder"),
+            ),
+
+            /// Platform aware capsule widget and shape
+            Capsule(
+              color: Colors.red,
+              child: Text("Capsule"),
+            ),
+            Container(
+              decoration: ShapeDecoration(
+                shape: const PlatformStadiumBorder(),
+                color: Colors.red,
+              ),
+              child: Text("PlatformStadiumBorder"),
+            ),
+
+            /// Convenience circle widget
+            Circle(
+              diameter: 64,
+              color: Colors.green,
+              child: Text("Circle"),
             ),
           ],
         ),
