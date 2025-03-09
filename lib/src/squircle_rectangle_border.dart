@@ -83,11 +83,14 @@ import 'package:flutter/rendering.dart';
 ///   continuous transition into its two 180º curves.
 /// * [StadiumBorder], which is a rectangle with semi-circles on two parallel
 ///   edges.
-class SquircleBorder extends OutlinedBorder {
+class SquircleRectangleBorder extends OutlinedBorder {
   /// Creates a continuous cornered rectangle border.
   ///
   /// The [cornerRadius] argument must not be null.
-  const SquircleBorder({super.side, this.borderRadius = BorderRadius.zero});
+  const SquircleRectangleBorder({
+    super.side,
+    this.borderRadius = BorderRadius.zero,
+  });
 
   /// The radius for each corner.
   ///
@@ -95,7 +98,7 @@ class SquircleBorder extends OutlinedBorder {
   /// [getOuterPath].
   ///
   /// While a [BorderRadiusGeometry] is accepted as input, this version of
-  /// the [SquircleBorder] still draws symmetrical corners using the largest
+  /// the [SquircleRectangleBorder] still draws symmetrical corners using the largest
   /// provided corner radius as its symmetrical radius, and if a corners was
   /// elliptical, the shorter radius is used to determine the radius for the
   /// symmetrical Squircle.
@@ -109,13 +112,16 @@ class SquircleBorder extends OutlinedBorder {
 
   @override
   ShapeBorder scale(double t) {
-    return SquircleBorder(side: side.scale(t), borderRadius: borderRadius * t);
+    return SquircleRectangleBorder(
+      side: side.scale(t),
+      borderRadius: borderRadius * t,
+    );
   }
 
   @override
   ShapeBorder? lerpFrom(ShapeBorder? a, double t) {
-    if (a is SquircleBorder) {
-      return SquircleBorder(
+    if (a is SquircleRectangleBorder) {
+      return SquircleRectangleBorder(
         side: BorderSide.lerp(a.side, side, t),
         borderRadius:
             BorderRadiusGeometry.lerp(a.borderRadius, borderRadius, t)!,
@@ -126,8 +132,8 @@ class SquircleBorder extends OutlinedBorder {
 
   @override
   ShapeBorder? lerpTo(ShapeBorder? b, double t) {
-    if (b is SquircleBorder) {
-      return SquircleBorder(
+    if (b is SquircleRectangleBorder) {
+      return SquircleRectangleBorder(
         side: BorderSide.lerp(side, b.side, t),
         borderRadius:
             BorderRadiusGeometry.lerp(borderRadius, b.borderRadius, t)!,
@@ -387,11 +393,11 @@ class SquircleBorder extends OutlinedBorder {
   }
 
   @override
-  SquircleBorder copyWith({
+  SquircleRectangleBorder copyWith({
     BorderSide? side,
     BorderRadiusGeometry? borderRadius,
   }) {
-    return SquircleBorder(
+    return SquircleRectangleBorder(
       side: side ?? this.side,
       borderRadius: borderRadius ?? this.borderRadius,
     );
@@ -400,7 +406,7 @@ class SquircleBorder extends OutlinedBorder {
   @override
   bool operator ==(Object other) {
     if (runtimeType != other.runtimeType) return false;
-    return other is SquircleBorder &&
+    return other is SquircleRectangleBorder &&
         other.side == side &&
         other.borderRadius == borderRadius;
   }

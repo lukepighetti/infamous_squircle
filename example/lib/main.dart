@@ -22,6 +22,11 @@ class _MyAppState extends State<MyApp> {
           spacing: 16,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            /// Platform aware capsule widget and shape
+            Capsule(
+              color: Colors.red,
+              child: Text("Capsule"),
+            ),
             Container(
               decoration: ShapeDecoration(
                 shape: const PlatformStadiumBorder(),
@@ -29,12 +34,21 @@ class _MyAppState extends State<MyApp> {
               ),
               child: Text("PlatformStadiumBorder"),
             ),
+
+            /// Platform aware rounded rectangle widget and shape
+            Rectangle(
+              radius: 12,
+              color: Colors.blue,
+              child: Text("Rectangle"),
+            ),
             Container(
               decoration: ShapeDecoration(
-                shape: PlatformBorder(borderRadius: BorderRadius.circular(12)),
+                shape: PlatformRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
                 color: Colors.blue,
               ),
-              child: Text("PlatformBorder"),
+              child: Text("PlatformRectangleBorder"),
             ),
           ],
         ),

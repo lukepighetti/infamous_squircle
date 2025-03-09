@@ -2,11 +2,12 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/rendering.dart';
 
 import 'src/platform_outline_border.dart';
-import 'src/squircle_border.dart';
+import 'src/squircle_rectangle_border.dart';
 import 'src/squircle_stadium_border.dart';
 
-export 'src/squircle_border.dart';
+export 'src/squircle_rectangle_border.dart';
 export 'src/squircle_stadium_border.dart';
+export 'src/shapes.dart';
 
 /// A platform aware border that uses [SquircleStadiumBorder] on iOS / macOS and [StadiumBorder] everywhere else
 final class PlatformStadiumBorder extends PlatformOutlinedBorder {
@@ -25,9 +26,12 @@ final class PlatformStadiumBorder extends PlatformOutlinedBorder {
   }
 }
 
-/// A platform aware border that uses [SquircleBorder] on iOS / macOS and [RoundedRectangleBorder] everywhere else
-final class PlatformBorder extends PlatformOutlinedBorder {
-  const PlatformBorder({super.side, this.borderRadius = BorderRadius.zero});
+/// A platform aware border that uses [SquircleRectangleBorder] on iOS / macOS and [RoundedRectangleBorder] everywhere else
+final class PlatformRectangleBorder extends PlatformOutlinedBorder {
+  const PlatformRectangleBorder({
+    super.side,
+    this.borderRadius = BorderRadius.zero,
+  });
 
   final BorderRadiusGeometry borderRadius;
 
@@ -41,7 +45,7 @@ final class PlatformBorder extends PlatformOutlinedBorder {
         side: side,
         borderRadius: borderRadius,
       ),
-      TargetPlatform.iOS || TargetPlatform.macOS => SquircleBorder(
+      TargetPlatform.iOS || TargetPlatform.macOS => SquircleRectangleBorder(
         side: side,
         borderRadius: borderRadius,
       ),
